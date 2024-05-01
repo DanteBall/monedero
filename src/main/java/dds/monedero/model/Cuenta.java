@@ -18,9 +18,6 @@ public class Cuenta {
     saldo = 0;
   }
 
-  public Cuenta(double montoInicial) {
-    saldo = montoInicial;
-  }
 
 //  los metodos poner() y sacar() repiten logica en las validaciones,
 //  podria abstraerse en 2 metodos y reutilizar la logica
@@ -29,7 +26,7 @@ public class Cuenta {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
 
-    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
+    if (getMovimientos().stream().filter(Movimiento::esDeposito).count() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
@@ -52,9 +49,6 @@ public class Cuenta {
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
   }
 
-  public void setMovimientos(List<Movimiento> movimientos) {  //no se utiliza
-    this.movimientos = movimientos;
-  }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
     Movimiento movimiento = new Movimiento(fecha, cuanto, esDeposito);
@@ -63,7 +57,7 @@ public class Cuenta {
 
   public double getMontoExtraidoA(LocalDate fecha) {
     return getMovimientos().stream()
-        .filter(movimiento -> !movimiento.isDeposito() && movimiento.getFecha().equals(fecha))
+        .filter(movimiento -> !movimiento.esDeposito() && movimiento.getFecha().equals(fecha))
         .mapToDouble(Movimiento::getMonto)
         .sum();
   }

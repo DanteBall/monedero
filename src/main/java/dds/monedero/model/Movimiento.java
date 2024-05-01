@@ -24,32 +24,11 @@ public class Movimiento {
     return fecha;
   }
 
-  //  los metodos fueDepositado() y fue extraido() no se utilizan,
-//  ademas no tienen sentido, todos los movimientos se extraen o depositan al momento,
-//  de su creacion. Tendria sentido si el sistema permitiera planificar movimientos a futuro, pero
-//  no es el caso y podria englobarse en un solo metodo
-  public boolean fueExtraido(LocalDate fecha) {
-    return isExtraccion() && esDeLaFecha(fecha);
-  }
-  public boolean fueDepositado(LocalDate fecha) {
-    return isDeposito() && esDeLaFecha(fecha);
-  }
-
-  public boolean esDeLaFecha(LocalDate fecha) {
-    return this.fecha.equals(fecha);
-  }
-
-//  los metodos isDeposito() y is Extraccion() son innecesarios,
-//  se puede usar la variable esDeposito directamente
-  public boolean isDeposito() {
+  public boolean esDeposito() {
     return esDeposito;
   }
 
-  public boolean isExtraccion() {
-    return !esDeposito;
-  }
-
-//  no es responsabilidad del movimiento agregarse en la cuenta
+  //  no es responsabilidad del movimiento agregarse en la cuenta
 //  y setear atributos internos de la cuenta
   public void agregateA(Cuenta cuenta) {
     cuenta.setSaldo(calcularValor(cuenta));
