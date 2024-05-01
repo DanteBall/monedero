@@ -28,21 +28,15 @@ public class Movimiento {
     return esDeposito;
   }
 
-  //  no es responsabilidad del movimiento agregarse en la cuenta
-//  y setear atributos internos de la cuenta
-  public void agregateA(Cuenta cuenta) {
-    cuenta.setSaldo(calcularValor(cuenta));
-    cuenta.agregarMovimiento(fecha, monto, esDeposito);
-  }
 
 //  en el sistema actualmente solo se realizan sumas y restas, pero si el sistema creciera
 //  y se agregan nuevos movimientos o se complejizan los procesos quiza seria mejor separar
 //  los depositos y extracciones en clases distintas
-  public double calcularValor(Cuenta cuenta) {
+  public double calcularValor() {
     if (esDeposito) {
-      return cuenta.getSaldo() + getMonto();
+      return + getMonto();
     } else {
-      return cuenta.getSaldo() - getMonto();
+      return - getMonto();
     }
   }
 }

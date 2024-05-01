@@ -21,26 +21,36 @@ public class Cuenta {
 
 //  de esta manera podemos simplificar la funcion y dejarlo mas declarativo
   public void poner(double cuanto) {
+    //validaciones de parametro
     montoNoNegativo(cuanto);
+
+    //validaciones de negocio
     depositoValido();
 
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
+    //comportamiento
+    Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
+    setSaldo(getSaldo()+ movimiento.calcularValor());
+    agregarMovimiento(movimiento);
   }
 
   public void sacar(double cuanto) {
+    //validaciones de parametro
     montoNoNegativo(cuanto);
     saldoNoMenor(cuanto);
 
+    //validaciones de negocio
     double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
     double limite = 1000 - montoExtraidoHoy;
     extraccionValida(cuanto,limite);
 
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+    //comportamiento
+    Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, false);
+    setSaldo(getSaldo()+ movimiento.calcularValor());
+    agregarMovimiento(movimiento);
   }
 
 
-  public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
-    Movimiento movimiento = new Movimiento(fecha, cuanto, esDeposito);
+  private void agregarMovimiento(Movimiento movimiento) {
     movimientos.add(movimiento);
   }
 
