@@ -22,10 +22,8 @@ public class Cuenta {
     saldo = montoInicial;
   }
 
-  public void setMovimientos(List<Movimiento> movimientos) {
-    this.movimientos = movimientos;
-  }
-
+//  los metodos poner() y sacar() repiten logica en las validaciones,
+//  podria abstraerse en 2 metodos y reutilizar la logica
   public void poner(double cuanto) {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
@@ -52,6 +50,10 @@ public class Cuenta {
           + " diarios, límite: " + limite);
     }
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+  }
+
+  public void setMovimientos(List<Movimiento> movimientos) {  //no se utiliza
+    this.movimientos = movimientos;
   }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
