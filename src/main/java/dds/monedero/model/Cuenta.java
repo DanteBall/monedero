@@ -28,9 +28,9 @@ public class Cuenta {
     depositoValido();
 
     //comportamiento
-    Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
-    setSaldo(getSaldo()+ movimiento.calcularValor());
-    agregarMovimiento(movimiento);
+    Deposito deposito = new Deposito(LocalDate.now(), cuanto);
+    setSaldo(getSaldo()+ deposito.calcularValor());
+    agregarMovimiento(deposito);
   }
 
   public void sacar(double cuanto) {
@@ -44,9 +44,9 @@ public class Cuenta {
     extraccionValida(cuanto,limite);
 
     //comportamiento
-    Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, false);
-    setSaldo(getSaldo()+ movimiento.calcularValor());
-    agregarMovimiento(movimiento);
+    Extraccion extraccion = new Extraccion(LocalDate.now(), cuanto);
+    setSaldo(getSaldo()+ extraccion.calcularValor());
+    agregarMovimiento(extraccion);
   }
 
 
